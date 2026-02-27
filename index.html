@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="pt-BR" style="margin:0; background:transparent;">
+<head>
+<meta charset="UTF-8" />
+<title>owned by bunnie, hihihi</title>
+<style>
+  body {
+    margin: 0; padding: 0;
+    background: transparent;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    height: 100vh; overflow: hidden;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #ec97d0;
+  }
+  .video-bg {
+    position: fixed; top: 0; left: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    z-index: -1;
+  }
+  h1 {
+    font-weight: 900;
+    font-size: 60px;
+    margin-bottom: 40px;
+    background: transparent;
+    display: inline-block;
+  }
+  img {
+    max-width: 400px;
+    height: auto;
+    display: block;
+  }
+  .info {
+    color: rgb(253, 158, 240);
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 20px;
+    text-align: center;
+  }
+  .link-discord {
+    margin-top: 15px;
+  }
+  .link-discord a {
+    color: rgb(253, 158, 240);
+    text-decoration: none;
+    font-size: 16px;
+  }
+  .link-discord a:hover {
+    text-decoration: underline;
+  }
+
+
+  #progress-container {
+    width: 300px;
+    height: 8px;
+    background: rgba(255,255,255,0.3);
+    border-radius: 4px;
+    margin-top: 15px;
+    cursor: pointer;
+  }
+  #progress {
+    height: 100%;
+    background: #ff9fdf;
+    width: 0%;
+    border-radius: 4px;
+  }
+
+  
+  .btn {
+    margin-top: 15px;
+    background: transparent;
+    border: 2px solid #fdb0e3;
+    color: #fda8e1;
+    padding: 6px 16px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 20px;
+    user-select: none;
+    text-decoration: none;
+    text-align: center;
+    display: inline-block;
+  }
+  .btn:hover {
+    background: #f89fdb;
+    color: #fff;
+  }
+
+  /* Volume invisível */
+  #audio {
+    display: none;
+  }
+</style>
+</head>
+<body>
+
+<!-- Vídeo de fundo (sempre mudo) -->
+<video id="video" class="video-bg" autoplay muted loop playsinline>
+  <source src="video.mp4" type="video/mp4" />
+</video>
+
+<!-- Música -->
+<audio id="audio" loop>
+  <source src="musica.mp3" type="audio/mpeg" />
+</audio>
+
+<h1>ownado pela bunniie</h1>
+
+<img src="imagem4.png" alt="imagem" />
+
+<div class="info">
+   <br />
+  discord: bunniiecupcwke
+</div>
+
+<!-- Botão Discord igual ao Twitter -->
+<a href="https://discord.gg/8XY7nqn8NT" target="_blank" class="btn">.gg/cyber404</a>
+
+<!-- Barra de progresso -->
+<div id="progress-container" title="Barra de progresso da música">
+  <div id="progress"></div>
+</div>
+
+<!-- Botão play/pause -->
+<button id="play-pause-btn" class="btn" aria-label="Play/Pausar">Pausar</button>
+
+<!-- Botão Twitter -->
+<a href="https://x.com/bunniiecupcwke" target="_blank" class="btn">twitter bbzetis</a>
+
+<script>
+  const audio = document.getElementById('audio');
+  const video = document.getElementById('video');
+  const progress = document.getElementById('progress');
+  const progressContainer = document.getElementById('progress-container');
+  const playPauseBtn = document.getElementById('play-pause-btn');
+
+  // Funções para play/pause sincronizado
+  function playMedia() {
+    audio.play();
+    video.play(); // vídeo mudo
+    playPauseBtn.textContent = 'Pause';
+  }
+  function pauseMedia() {
+    audio.pause();
+    video.pause();
+    playPauseBtn.textContent = 'Play';
+  }
+
+  playPauseBtn.addEventListener('click', () => {
+    if (audio.paused) {
+      playMedia();
+    } else {
+      pauseMedia();
+    }
+  });
+
+  // Atualizar barra de progresso da música
+  audio.addEventListener('timeupdate', () => {
+    const percent = (audio.currentTime / audio.duration) * 100;
+    progress.style.width = percent + '%';
+  });
+
+  // Clicar na barra para pular na música
+  progressContainer.addEventListener('click', (e) => {
+    const rect = progressContainer.getBoundingClientRect();
+    const clickX = e.clientX - rect.left;
+    const width = rect.width;
+    const newTime = (clickX / width) * audio.duration;
+    audio.currentTime = newTime;
+    video.currentTime = newTime;
+  });
+
+  // Começa pausado, toca ao clicar na página
+  window.addEventListener('click', () => {
+    if (audio.paused) {
+      playMedia();
+    }
+  }, { once: true });
+</script>
+
+</body>
+</html>
